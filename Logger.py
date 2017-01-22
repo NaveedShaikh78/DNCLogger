@@ -5,16 +5,22 @@ import ttk
 import RPi.GPIO as GPIO
 import sqlite3
 import TCPSocket
-import urllib
+import urllib2
 import ntplib
 import os
+import json
+import socket
 from datetime import datetime
 from datetime import timedelta
-
+from socket import timeout
 #{portno: port state} configure io ports can add new
 #GPI={17:False,27:False,22:False,6:False,13:False,19:False,26:False}
 GPI={26:False,19:False,13:False,6:False,22:False,27:False,17:False}
-IOTimes={26:datetime.now(),19:datetime.now(),13:datetime.now(),6:datetime.now(),22:datetime.now(),27:datetime.now(),17:datetime.now()}
+IOTimes = {26:datetime.now(),19:datetime.now(),13:datetime.now(),6:datetime.now(),22:datetime.now(),27:datetime.now(),17:datetime.now()}
+settings ={}
+with open ('setting.json') as data_file:
+        settings = json.load(data_file)   
+
 dataToUpdate=[]
 sendData = True
 dataToSend=[]
@@ -27,7 +33,7 @@ macView = appview.MachineMainView()       #GPIO.cleanup()
       
 def send_Data(threadName, delay):
       
-      global sendData,dataToSend,queries,dirtyRecords,timeDelta,dataToUpdate
+      global sendData,dataToSend,queries,dirtyRecords,timeDelta,dataToUpdate,settings
       
       while True :
        try:
@@ -61,10 +67,9 @@ def send_Data(threadName, delay):
         if len(dataToUpdate) > 0 :
                   try :
                         for updata in  dataToUpdate :
-                            url="http://trendzsoft.in/updatemachinestatus.php?%s"% (updata)
+                            url="%s/updatemachinestatus.php?%s"% (settings['url'],updata)
                             print url
-                            filehandle = urllib.urlopen(url)
-                            result=  filehandle.read()
+                            result=urllib2.urlopen(url,timeout=10).read().decode('utf-8')
                             print result
                         dataToUpdate=[]
                   except Exception as e:
@@ -83,10 +88,9 @@ def send_Data(threadName, delay):
                       ip = row[2]
                       srno = row[3]
                       try :  
-                            url="http://trendzsoft.in/logdata.php?st='%s'&et='%s'&ip=%s&jn=1"% (st,et,ip)
+                            url="%s/logdata.php?st='%s'&et='%s'&ip=%s&jn=1"% (settings['url'],st,et,ip)
                             print url
-                            filehandle = urllib.urlopen(url)
-                            result=  filehandle.read()
+                            result=urllib2.urlopen(url,timeout=10).read().decode('utf-8')
                             print result
                             if result=="success" :      
                                     query= "update machinelogs set serstatus=2 where srno =%s" % srno
