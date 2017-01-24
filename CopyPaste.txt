@@ -1,0 +1,1 @@
+ELECT @lastRecord:= srno,end_time,@totalidlesec:=TIMESTAMPDIFF(SECOND,end_time,str_to_date(2017-1-24 22:38:30,'%Y-%m-%d %H:%i:%s')) from machinelog where ioport=19 and srno=(SELECT MAX(srno) FROM machinelog  where ioport=19 );
