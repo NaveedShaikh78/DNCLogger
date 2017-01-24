@@ -158,7 +158,7 @@ def watch_GPIO(threadName, delay):
              if(len(dataToUpdate)>10) :
                    dataToUpdate=[]
              else :
-                   dataToUpdate.append("st='%s'&ip='%s'&ss=%s"% (time.strftime('%Y-%m-%d %X'),ioport,1))
+                   dataToUpdate.append("st='%s'&ip='%s'&ss=%s"% (time.strftime('%Y-%m-%dT%X'),ioport,1))
              query ="insert into machinelogs(starttime,ioport ,value,logtype,serstatus) values ('%s',%d,%d,%d,%d)"% (time.strftime('%Y-%m-%d %X'),ioport,1,1,dirtyRecords)
              sqlx.execute(query)
              conn.commit()
@@ -169,7 +169,7 @@ def watch_GPIO(threadName, delay):
              if(len(dataToUpdate)>10):
                    dataToUpdate=[]
              else :
-                   dataToUpdate.append("st='%s'&ip='%s'&ss=%s"% (time.strftime('%Y-%m-%d %X'),ioport,0))
+                   dataToUpdate.append("st='%s'&ip='%s'&ss=%s"% (time.strftime('%Y-%m-%dT%X'),ioport,0))
              print "gpi:%s is off" % ioport
              query="update  machinelogs set endtime= '%s' where  ioport=%d and endtime is null and srno=(select max(srno) from machinelogs where ioport=%d)"% (time.strftime('%Y-%m-%d %X'),ioport,ioport)
              sqlx.execute(query)
