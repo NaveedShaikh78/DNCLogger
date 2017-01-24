@@ -13,6 +13,7 @@ import socket
 from datetime import datetime
 from datetime import timedelta
 from socket import timeout
+
 #{portno: port state} configure io ports can add new
 #GPI={17:False,27:False,22:False,6:False,13:False,19:False,26:False}
 GPI={26:False,19:False,13:False,6:False,22:False,27:False,17:False}
@@ -82,13 +83,13 @@ def send_Data(threadName, delay):
                   
                    for row in  dataToSend :
                       dt= time.strptime(row[0],"%Y-%m-%d  %X") 
-                      st = "%s-%s-%s %s:%s:%s" % (dt.tm_year,dt.tm_mon,dt.tm_mday,dt.tm_hour,dt.tm_min,dt.tm_sec)
+                      st = "%s-%s-%sT%s:%s:%s" % (dt.tm_year,dt.tm_mon,dt.tm_mday,dt.tm_hour,dt.tm_min,dt.tm_sec)
                       dt= time.strptime(row[1],"%Y-%m-%d  %X") 
-                      et = "%s-%s-%s %s:%s:%s" % (dt.tm_year,dt.tm_mon,dt.tm_mday,dt.tm_hour,dt.tm_min,dt.tm_sec)
+                      et = "%s-%s-%sT%s:%s:%s" % (dt.tm_year,dt.tm_mon,dt.tm_mday,dt.tm_hour,dt.tm_min,dt.tm_sec)
                       ip = row[2]
                       srno = row[3]
                       try :  
-                            url="%s/logdata.php?st='%s'&et='%s'&ip=%s&jn=1"% (settings['url'],st,et,ip)
+                            url="%s/logdata.php?st=%s&et=%s&ip=%s"% (settings['url'],st,et,ip)
                             print url
                             result=urllib2.urlopen(url,timeout=10).read().decode('utf-8')
                             print result
