@@ -1,1 +1,1 @@
-ELECT @lastRecord:= srno,end_time,@totalidlesec:=TIMESTAMPDIFF(SECOND,end_time,str_to_date(2017-1-24 22:38:30,'%Y-%m-%d %H:%i:%s')) from machinelog where ioport=19 and srno=(SELECT MAX(srno) FROM machinelog  where ioport=19 );
+INSERT INTO machinelog( start_time, end_time, cycletime, ioport, jobno) VALUES ('2017-1-24 22:38:30','2017-1-24 22:38:31',TIMESTAMPDIFF(SECOND,str_to_date('2017-1-24 22:38:30','%Y-%m-%d %H:%i:%s'),str_to_date('2017-1-24 22:38:31','%Y-%m-%d %H:%i:%s')),19,);
