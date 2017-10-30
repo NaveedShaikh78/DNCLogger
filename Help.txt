@@ -15,14 +15,7 @@ sudo apt-get install xrdp
 
 
 piteamviewer-240934169
-1 sleep setting
-sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
-@xset s noblank
-@xset s off
-@xset -dpms
-ctrl+x
-y
-enter
+1 sudo bash
 2 sudo apt-get install xrdp 
 3 sudo apt-get install python-ntplib 
 4 wget https://download.teamviewer.com/download/linux/teamviewer-host_armhf.deb
@@ -32,4 +25,13 @@ enter
 7 sudo apt-get install git
 git clone https://github.com/trendzsoft/DNCLogger
 
-8.configuration to increase size
+8. CD /home/pi/DNCLogger
+9. sudo chmod 755 startup.sh
+10 cp startup.sh  /etc/init.d/startup.sh
+11 sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
+add below line
+sudo sh /home/DNCLogger/startup.sh
+
+12.configuration to increase size
+
+sudo apt-get install x11-xserver-utils
