@@ -25,9 +25,7 @@ y
 enter
 2 sudo apt-get install xrdp 
 3 sudo apt-get install python-ntplib 
-4 wget https://download.teamviewer.com/download/linux/teamviewer-
-
-host_armhf.deb
+4 wget https://download.teamviewer.com/download/linux/teamviewer-host_armhf.deb
 5 sudo dpkg -i teamviewer-host_armhf.deb
 6 sudo apt-get -f install
 
