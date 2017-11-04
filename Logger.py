@@ -16,8 +16,8 @@ from socket import timeout
 
 #{portno: port state} configure io ports can add new
 #GPI={17:False,27:False,22:False,6:False,13:False,19:False,26:False}
-GPI={26:False,19:False,13:False,6:False,22:False,27:False,17:False}
-IOTimes = {26:datetime.now(),19:datetime.now(),13:datetime.now(),6:datetime.now(),22:datetime.now(),27:datetime.now(),17:datetime.now()}
+GPI={26:False,13:False,6:False,5:False,22:False,27:False,17:False}
+IOTimes = {26:datetime.now(),13:datetime.now(),6:datetime.now(),5:datetime.now(),22:datetime.now(),27:datetime.now(),17:datetime.now()}
 settings ={}
 with open ('setting.json') as data_file:
         settings = json.load(data_file)   
