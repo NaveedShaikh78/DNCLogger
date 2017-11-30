@@ -8,7 +8,7 @@ import AutoComplete
 
 autocmp = __import__('AutoComplete')
 root = Tk()
-root.grid_columnconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=2)
 root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
 class AppMainView:
   def __init__(self):
@@ -26,10 +26,10 @@ class AppMainView:
     self.sclr.set('Red')
     rowcolor0 = '#40E0D0'
     rowcolor1 = 'cyan'
-    lb=Label(frame,  anchor=W, bg=rowcolor1 , padx = 5 , text="Machine Status ")            .grid(row=0,column=0,sticky=W+E+N+S)
+    lb=Label(frame,  anchor=W, bg=rowcolor1 ,height=2, padx = 5 , text="Machine Status ")            .grid(row=0,column=0,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=rowcolor1 , padx = 0, width=01, text=":")                 .grid(row=0,column=1,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=self.sclr.get(), padx = 5, width=12, textvariable = self.macstatus) .grid(row=0,column=2,sticky=W+E+N+S)
-    lb=Label(frame,  anchor=W, bg=rowcolor0 , padx = 5, width=12, text="Operator Name")     .grid(row=1,column=0,sticky=W+E+N+S)
+    lb=Label(frame,  anchor=W, bg=rowcolor0 ,height=2, padx = 5, width=12, text="Operator Name")     .grid(row=1,column=0,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=rowcolor0 , padx = 0, width=01, text=":")                 .grid(row=1,column=1,sticky=W+E+N+S)
     self.lboperator=Label(frame,  anchor=W, bg=rowcolor0 , padx = 5, width=12, textvariable=self.operator); 
     self.lboperator.grid(row=1,column=2,sticky=W+E+N+S);

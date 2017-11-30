@@ -2,17 +2,21 @@ import thread
 import time
 from Tkinter import *
 import ttk
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import sqlite3
 import TCPSocket
 import urllib2
-import ntplib
+#import ntplib
 import os
 import json
 import socket
 from datetime import datetime
 from datetime import timedelta
 from socket import timeout
+#appview = __import__('MachineView')
+#macView = appview.MachineMainView()       #GPIO.cleanup()
+appview = __import__('AppMainView')
+macView = appview.AppMainView()       #GPIO.cleanup()
 
 #{portno: port state} configure io ports can add new
 #GPI={17:False,27:False,22:False,6:False,13:False,19:False,26:False}
@@ -29,8 +33,6 @@ dirtyRecords=1
 queries=[]
 timeDelta=0
 
-appview = __import__('MachineView')
-macView = appview.MachineMainView()       #GPIO.cleanup()
       
 def send_Data(threadName, delay):
       
@@ -203,6 +205,8 @@ try:
     conn = sqlite3.connect('loggerdb.db')
     sqlx = conn.cursor()
     data = sqlx.execute(query)
+    macView.machines[26].setOperator("Naveed")
+
     for val in data :
        lastTime = datetime.strptime(val[0],"%Y-%m-%d %X")
 
@@ -228,6 +232,9 @@ try:
           queryCondition="starttime between '%s' and '%s' " %(eveningTime.strftime('%Y-%m-%d %X'),morningTime.strftime('%Y-%m-%d %X'))
           print   queryCondition
     # update Count
+    
+   
+
     for ioport in GPI:
            query="select count(*) from machinelogs  where endtime > DATETIME(starttime,'+20 second') and ioport=%d and %s" %(ioport,queryCondition)
            print query;
@@ -254,9 +261,8 @@ try:
     print "Pi Time" 
     print datetime.now()
     
-    #thread.start_new_thread(TCPSocket.startServer,("startServer", 2))
-    thread.start_new_thread(send_Data,("watch_GPIO", 5))
-    thread.start_new_thread(watch_GPIO,("send_Data", 1))
+    #thread.start_new_thread(send_Data,("watch_GPIO", 5))
+    #thread.start_new_thread(watch_GPIO,("send_Data", 1))
     
 except Exception as e:
    print e
