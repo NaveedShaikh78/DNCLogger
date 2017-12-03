@@ -83,7 +83,7 @@ class AutocompleteEntry(Entry):
             if not hasattr(self, 'lb') :
                 self.lb = Listbox(self.frame)
                 self.lb.grid(row=1,column=0,columnspan=10,rowspan=20,sticky=W + E + N + S)
-                self.lb.bind("<Button-1>", self.selection)
+                self.lb.bind("<Double-Button-1>", self.selection)
                 self.lb.bind("<Right>", self.selection)
                 self.lb_up = True
             self.lb.delete(0,END)
