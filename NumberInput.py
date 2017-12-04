@@ -2,7 +2,6 @@ import thread
 from Tkinter import *
 import ttk
 
-
 class NumberInputEntry1(Entry):
     def __init__(self,frame,*args, **kwargs):
         
@@ -13,6 +12,7 @@ class NumberInputEntry1(Entry):
         Entry(frame).grid(column=0,row=0,columnspan=1,height=2,sticky=W+E+N+S)
 
 class NumberInputEntry:
+  retValue = ""
   def __init__(self,frame,*args, **kwargs):
             
         Entry.__init__(self,frame, *args, **kwargs)
@@ -58,6 +58,7 @@ class NumberInputEntry:
 
   def action(self,argi): 
     """pressed button's value is inserted into the end of the text area"""
+    retValue = argi
     self.e.insert(END,argi)
   
   def __init__(self,master):

@@ -73,5 +73,6 @@ class AppMainView:
   def cancelInput(self):
       self.insderframe.destroy()
     #AutoPopUPView.AutoPopUPView().Show(self.frame,operator)
-  def done(self):
+  def done(self,strvar):
+      #NumberInput  
       self.insderframe.destroy()
