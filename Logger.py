@@ -2,22 +2,26 @@ import thread
 import time
 from Tkinter import *
 import ttk
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import sqlite3
 import TCPSocket
 import urllib2
-import ntplib
+#import ntplib
 import os
 import json
 import socket
 from datetime import datetime
 from datetime import timedelta
 from socket import timeout
+#appview = __import__('MachineView')
+#macView = appview.MachineMainView()       #GPIO.cleanup()
+appview = __import__('AppMainView')
+macView = appview.AppMainView()       #GPIO.cleanup()
 
 #{portno: port state} configure io ports can add new
 #GPI={17:False,27:False,22:False,6:False,13:False,19:False,26:False}
-GPI={26:False,19:False,13:False,6:False,22:False,27:False,17:False}
-IOTimes = {26:datetime.now(),19:datetime.now(),13:datetime.now(),6:datetime.now(),22:datetime.now(),27:datetime.now(),17:datetime.now()}
+GPI={26:False,13:False,6:False,5:False,22:False,27:False,17:False}
+IOTimes = {26:datetime.now(),13:datetime.now(),6:datetime.now(),5:datetime.now(),22:datetime.now(),27:datetime.now(),17:datetime.now()}
 settings ={}
 with open ('setting.json') as data_file:
         settings = json.load(data_file)   
@@ -29,8 +33,6 @@ dirtyRecords=1
 queries=[]
 timeDelta=0
 
-appview = __import__('MachineView')
-macView = appview.MachineMainView()       #GPIO.cleanup()
       
 def send_Data(threadName, delay):
       
@@ -158,7 +160,7 @@ def watch_GPIO(threadName, delay):
              if(len(dataToUpdate)>10) :
                    dataToUpdate=[]
              else :
-                   dataToUpdate.append("st='%s'&ip='%s'&ss=%s"% (time.strftime('%Y-%m-%d %X'),ioport,1))
+                   dataToUpdate.append("st='%s'&ip='%s'&ss=%s"% (time.strftime('%Y-%m-%dT%X'),ioport,1))
              query ="insert into machinelogs(starttime,ioport ,value,logtype,serstatus) values ('%s',%d,%d,%d,%d)"% (time.strftime('%Y-%m-%d %X'),ioport,1,1,dirtyRecords)
              sqlx.execute(query)
              conn.commit()
@@ -169,7 +171,7 @@ def watch_GPIO(threadName, delay):
              if(len(dataToUpdate)>10):
                    dataToUpdate=[]
              else :
-                   dataToUpdate.append("st='%s'&ip='%s'&ss=%s"% (time.strftime('%Y-%m-%d %X'),ioport,0))
+                   dataToUpdate.append("st='%s'&ip='%s'&ss=%s"% (time.strftime('%Y-%m-%dT%X'),ioport,0))
              print "gpi:%s is off" % ioport
              query="update  machinelogs set endtime= '%s' where  ioport=%d and endtime is null and srno=(select max(srno) from machinelogs where ioport=%d)"% (time.strftime('%Y-%m-%d %X'),ioport,ioport)
              sqlx.execute(query)
@@ -203,6 +205,8 @@ try:
     conn = sqlite3.connect('loggerdb.db')
     sqlx = conn.cursor()
     data = sqlx.execute(query)
+    macView.machines[26].setOperator("Naveed")
+
     for val in data :
        lastTime = datetime.strptime(val[0],"%Y-%m-%d %X")
 
@@ -228,6 +232,9 @@ try:
           queryCondition="starttime between '%s' and '%s' " %(eveningTime.strftime('%Y-%m-%d %X'),morningTime.strftime('%Y-%m-%d %X'))
           print   queryCondition
     # update Count
+    
+   
+
     for ioport in GPI:
            query="select count(*) from machinelogs  where endtime > DATETIME(starttime,'+20 second') and ioport=%d and %s" %(ioport,queryCondition)
            print query;
@@ -254,9 +261,8 @@ try:
     print "Pi Time" 
     print datetime.now()
     
-    #thread.start_new_thread(TCPSocket.startServer,("startServer", 2))
-    thread.start_new_thread(send_Data,("watch_GPIO", 5))
-    thread.start_new_thread(watch_GPIO,("send_Data", 1))
+    #thread.start_new_thread(send_Data,("watch_GPIO", 5))
+    #thread.start_new_thread(watch_GPIO,("send_Data", 1))
     
 except Exception as e:
    print e

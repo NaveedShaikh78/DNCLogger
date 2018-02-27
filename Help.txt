@@ -1,0 +1,37 @@
+$ sudo bash --root login
+for sharing folder from windows to raspberry
+https://www.bitpi.co/2015/02/16/accessing-a-windows-share-with-
+
+a-raspberry-pi/
+https://rasspberrypi.wordpress.com/2012/09/04/mounting-and-
+
+automounting-windows-shares-on-raspberry-pi/
+example
+sudo mount.cifs //192.168.0.4/pilogger /home/pi/logger/ -o 
+
+user=user,password=123
+Desktop sharing
+sudo apt-get install xrdp
+
+
+piteamviewer-240934169
+1 sudo bash
+2 sudo apt-get install xrdp 
+3 sudo apt-get install python-ntplib 
+4 wget https://download.teamviewer.com/download/linux/teamviewer-host_armhf.deb
+5 sudo dpkg -i teamviewer-host_armhf.deb
+6 sudo apt-get -f install
+
+7 sudo apt-get install git
+git clone https://github.com/trendzsoft/DNCLogger
+
+8. CD /home/pi/DNCLogger
+9. sudo chmod 755 startup.sh
+10 cp startup.sh  /etc/init.d/startup.sh
+11 sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
+add below line
+sudo sh /home/pi/DNCLogger/startup.sh
+
+12.configuration to increase size
+
+sudo apt-get install x11-xserver-utils
