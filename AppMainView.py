@@ -63,12 +63,13 @@ class AppMainView:
       self.insderframe.columnconfigure(0, weight=1)
       self.insderframe.columnconfigure(1, weight=1)
       self.insderframe.columnconfigure(2, weight=1)
+      self.insderframe.height =8;
       #self.insderframe.pack(expand=True,fill=X)
       self.insderframe.grid(column=0,row=0,columnspan=10,rowspan=10,sticky=W+E+N+S)
       NumberInput.NumberInputEntry(self.insderframe)
       #AutoComplete.AutocompleteEntry(OperatorList,self.insderframe,strvar).grid(column=0,row=0,sticky=W+E+N+S)
-      Button(self.insderframe,text="X",height=2,command =self.cancelInput).grid(column=2,row=0,sticky=W+E+N+S)
-      Button(self.insderframe,height=2,text="Ok",width=10,command=lambda:self.done()).grid(row=4, column=2,sticky=W+E+N+S)
+      Button(self.insderframe,text="X", height=self.insderframe.height, command =self.cancelInput).grid(column=2,row=0,sticky=W+E+N+S)
+      Button(self.insderframe,text="Ok", height=self.insderframe.height, width=10,command=lambda:self.done()).grid(row=4, column=2,sticky=W+E+N+S)
 
   def cancelInput(self):
       self.insderframe.destroy()

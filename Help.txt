@@ -13,22 +13,32 @@ user=user,password=123
 Desktop sharing
 sudo apt-get install xrdp
 
-
+-------------------------------------------------------------
+command line wifi connection
+	sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+	network={
+    		ssid="testing"
+    		psk="testingPassword"
+	}
+-------------------------------------------------------------
 piteamviewer-240934169
+-------------------------------------------------------------
+-----------get Pi reddy--------------------------------------
 1 sudo bash
-2 sudo apt-get install xrdp 
-3 sudo apt-get install python-ntplib 
-4 wget https://download.teamviewer.com/download/linux/teamviewer-host_armhf.deb
-5 sudo dpkg -i teamviewer-host_armhf.deb
-6 sudo apt-get -f install
+2 sudo apt-get install tightvncserver
+3 sudo apt-get install xrdp 
+4 sudo apt-get install python-ntplib 
+5 wget https://download.teamviewer.com/download/linux/teamviewer-host_armhf.deb
+6 sudo dpkg -i teamviewer-host_armhf.deb
+7 sudo apt-get -f install
 
-7 sudo apt-get install git
+8 sudo apt-get install git
 git clone https://github.com/trendzsoft/DNCLogger
 
-8. CD /home/pi/DNCLogger
-9. sudo chmod 755 startup.sh
-10 cp startup.sh  /etc/init.d/startup.sh
-11 sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
+9. CD /home/pi/DNCLogger
+10. sudo chmod 755 startup.sh
+11 cp startup.sh  /etc/init.d/startup.sh
+12 sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
 add below line
 sudo sh /home/pi/DNCLogger/startup.sh
 

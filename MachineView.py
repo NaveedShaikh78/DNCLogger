@@ -4,6 +4,7 @@ import ttk
 root = Tk()
 root.attributes('-fullscreen',True)
 root.grid_columnconfigure(0, weight=1)
+
 class Machine :
   def __init__(self) :
        self.macCycleCounter= StringVar()
