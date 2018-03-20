@@ -29,36 +29,36 @@ class AppMainView:
     rowcolor0 = '#40E0D0'
     rowcolor1 = 'cyan'
     lb=Label(frame,  anchor=W, bg=rowcolor1 ,height=2, padx = 5 , text="Machine Status ")
-    .grid(row=0,column=0,sticky=W+E+N+S)
+    lb.grid(row=0,column=0,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=rowcolor1 , padx = 0,  text=":")
-    .grid(row=0,column=1,sticky=W+E+N+S)
+    lb.grid(row=0,column=1,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=self.sclr.get(), padx = 5, width=12, textvariable = self.macstatus)
-    .grid(row=0,column=2,sticky=W+E+N+S)
+    lb.grid(row=0,column=2,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=rowcolor0 ,height=2, padx = 5, width=12, text="Operator Name")
-    .grid(row=1,column=0,sticky=W+E+N+S)
+    lb.grid(row=1,column=0,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=rowcolor0 , padx = 0,  text=":")
-    .grid(row=1,column=1,sticky=W+E+N+S)
+    lb.grid(row=1,column=1,sticky=W+E+N+S)
     self.lboperator=Label(frame,  anchor=W, bg=rowcolor0 , padx = 5, width=12, textvariable=self.operator); 
     self.lboperator.grid(row=1,column=2,sticky=W+E+N+S);
     self.lboperator.bind("<Button-1>",self.labelClicked );
     lb=Label(frame,  anchor=W, bg=rowcolor1 , padx = 5, width=12, text="Job No") 
-    .grid(row=2,column=0,sticky=W+E+N+S)
+    lb.grid(row=2,column=0,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=rowcolor1 , padx = 0,  text=":")
-    .grid(row=2,column=1,sticky=W+E+N+S)
+    lb.grid(row=2,column=1,sticky=W+E+N+S)
     self.lbjobno=Label(frame,  anchor=W, bg=rowcolor1 , padx = 5, width=12, textvariable=self.jobno);  
     self.lbjobno.grid(row=2,column=2,sticky=W+E+N+S);
     self.lbjobno.bind("<Button-1>",self.labelClicked );
     lb=Label(frame,  anchor=W, bg=rowcolor0 , padx = 5, width=12, text="Operation")
-    .grid(row=3,column=0,sticky=W+E+N+S)
+    lb.grid(row=3,column=0,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=rowcolor0 , padx = 0,  text=":")
-    .grid(row=3,column=1,sticky=W+E+N+S)
+    lb.grid(row=3,column=1,sticky=W+E+N+S)
     self.lboperation=Label(frame,  anchor=W, bg=rowcolor0 , padx = 5, width=12, textvariable=self.operation);
     self.lboperation.grid(row=3,column=2,sticky=W+E+N+S);
     self.lboperation.bind("<Button-1>",self.labelClicked );
     lb=Label(frame,  anchor=W, bg=rowcolor1 , padx = 5, width=12, text="Idle Reason")
-    .grid(row=4,column=0,sticky=W+E+N+S)
+    lb.grid(row=4,column=0,sticky=W+E+N+S)
     lb=Label(frame,  anchor=W, bg=rowcolor1 , padx = 0,  text=":")
-    .grid(row=4,column=1,sticky=W+E+N+S)
+    lb.grid(row=4,column=1,sticky=W+E+N+S)
     self.lbidlereson=Label(frame,  anchor=W, bg=rowcolor1 , padx = 5, width=12, textvariable=self.idlereson);
     self.lbidlereson.grid(row=4,column=2,sticky=W+E+N+S);
     self.lbidlereson.bind("<Button-1>",self.labelClicked );
