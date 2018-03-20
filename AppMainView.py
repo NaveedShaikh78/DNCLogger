@@ -9,6 +9,7 @@ import AutoComplete
 NumberInput = __import__('NumberInput')
 autocmp = __import__('AutoComplete')
 root = Tk()
+root.option_add("*Font", "courier 20")
 root.attributes('-fullscreen',True)
 root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
 class AppMainView:
@@ -63,7 +64,7 @@ class AppMainView:
       self.insderframe.columnconfigure(0, weight=1)
       self.insderframe.columnconfigure(1, weight=1)
       self.insderframe.columnconfigure(2, weight=1)
-      self.insderframe.height =8;
+      self.insderframe.height =2;
       #self.insderframe.pack(expand=True,fill=X)
       self.insderframe.grid(column=0,row=0,columnspan=10,rowspan=10,sticky=W+E+N+S)
       NumberInput.NumberInputEntry(self.insderframe)
