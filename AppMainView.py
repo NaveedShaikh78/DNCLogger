@@ -20,6 +20,8 @@ root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
 class AppMainView:
     def __init__(self):
         global NumberInput
+        RS232.openPort()
+        RS232.readPort()
         self.macstatus = StringVar()
         self.operator = StringVar()
         self.operation = StringVar()
@@ -139,5 +141,4 @@ class AppMainView:
             for root, dirs, files in os.walk("./ncfiles"):
                 for filename in files:
                     if value in filename:
-                        print(filename)
                         self.strvar.set(filename)
