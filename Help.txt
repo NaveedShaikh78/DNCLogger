@@ -45,3 +45,10 @@ sudo sh /home/pi/DNCLogger/startup.sh
 12.configuration to increase size
 
 sudo apt-get install x11-xserver-utils
+13 Installing touch driver 
+https://www.elecrow.com/wiki/index.php?title=HDMI_Interface_5_Inch_800x480_TFT_Display
+14 landscape setting
+sudo nano /boot/config.txt
+display_rotate=3
+then goto calibrate and change setting accordingly if touch is inverted
+

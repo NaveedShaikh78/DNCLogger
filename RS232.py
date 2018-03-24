@@ -4,6 +4,22 @@ import thread
 abortSending = False
 portbz = False
 
+def readPort() :
+    ser = openPort()
+    
+
+def openPort() :
+    return serial.Serial(port='COM1',
+	baudrate = 9600,
+	parity=serial.PARITY_NONE,
+	stopbits=serial.STOPBITS_ONE,
+	bytesize=serial.EIGHTBITS,
+        xonxoff=False,         # enable software flow control
+        rtscts=False,          # enable RTS/CTS flow control
+        writeTimeout=1,        # set a timeout for writes
+        dsrdtr=False,          # None: use rtscts setting, dsrdtr override if True or False
+        interCharTimeout=None, # Inter-character timeout, None to disable
+        timeout=1) 
 
 def sendFile(filepath,currentline,sendtext) :
     try:
@@ -16,29 +32,20 @@ def sendFile(filepath,currentline,sendtext) :
 def send(filepath,currentline,sendtext):
     global portbz
     global abortSending
-    ser = serial.Serial(port='/dev/ttyAMA0',
-	baudrate = 9600,
-	parity=serial.PARITY_NONE,
-	stopbits=serial.STOPBITS_ONE,
-	bytesize=serial.EIGHTBITS,
-        xonxoff=False,         # enable software flow control
-        rtscts=False,          # enable RTS/CTS flow control
-        writeTimeout=1,        # set a timeout for writes
-        dsrdtr=False,          # None: use rtscts setting, dsrdtr override if True or False
-        interCharTimeout=None, # Inter-character timeout, None to disable
-        timeout=1) 
+    #/dev/ttyAMA0
+    ser = openPort()
     abortSending = False
     file = open(filepath)
-    print ser
     try:
             for line in iter(file) :
-                currentline.set(line)
-	            if abortSending == False :
+                print line
+                #currentline.set(line)
+                if abortSending == False :
                     for ch in line :
                         ser.write(ch)
                 else :
-                        print "Aborted" 
-            break
+                    print "Aborted" 
+                    break
     except Exception as e:
         print e
     file.close
@@ -48,6 +55,7 @@ def send(filepath,currentline,sendtext):
 def abort():
     global portbz
     global abortSending
+    portbz = False
     abortSending = True
     
 

@@ -2,23 +2,14 @@ import thread
 from Tkinter import *
 import ttk
 
-class NumberInputEntry1(Entry):
-    def __init__(self,frame,*args, **kwargs):
-        
-        Entry.__init__(self,frame, *args, **kwargs)
-        self.frame = frame;  
-        self.numberEntry = Entry(frame)
-        self.numberEntry.focus_set() #Sets focus on the input text area  
-        Entry(frame).grid(column=0,row=0,columnspan=1,height=1,sticky=W+E+N+S)
-
-class NumberInputEntry:
-  retValue = ""
-  def __init__(self,frame,*args, **kwargs):
-            
-        Entry.__init__(self,frame, *args, **kwargs)
+class NumberInput:
+  def __init__(self, frame):
         self.frame = frame;  
   def getandreplace(self):
     self.expression = self.e.get()
+
+  def getRetValue(self) :
+    return self.retvalue
 
   def equals(self):
     #when the equal button is pressed#
@@ -58,8 +49,8 @@ class NumberInputEntry:
 
   def action(self,argi): 
     """pressed button's value is inserted into the end of the text area"""
-    retValue = argi
     self.e.insert(END,argi)
+    self.retvalue =self.e.get()
   
   def __init__(self,master):
     """Constructor method"""
