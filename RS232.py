@@ -1,5 +1,6 @@
 import serial
 import thread
+import json
 
 abortAction = False
 portbz = False
@@ -49,16 +50,18 @@ def read():
 
 def openPort():
     global SerPort
-    SerPort = serial.Serial(port='COM1',
-                            baudrate=9600,
-                            parity=serial.PARITY_NONE,
-                            stopbits=serial.STOPBITS_ONE,
-                            bytesize=serial.EIGHTBITS,
-                            xonxoff=False,         # enable software flow control
-                            rtscts=False,          # enable RTS/CTS flow control
-                            writeTimeout=1,        # set a timeout for writes
-                            dsrdtr=False,          # None: use rtscts setting, dsrdtr override if True or False
-                            interCharTimeout=None,  # Inter-character timeout, None to disable
+    with open ('setting.json') as data_file:
+        settings = json.load(data_file)
+    SerPort = serial.Serial(port=settings["port"],
+                            baudrate=int(settings["baudrate"]),
+                            parity=settings["parity"],
+                            stopbits=int(settings["stopbits"]),
+                            bytesize=int(settings["bytesize"]),
+                            xonxoff=bool(settings["xonxoff"]),        # enable software flow control
+                            rtscts=bool(settings["rtscts"]),          # enable RTS/CTS flow control
+                            writeTimeout=1,                           # set a timeout for writes
+                            dsrdtr=bool(settings["dsrdtr"]),          # None: use rtscts setting, dsrdtr override if True or False
+                            interCharTimeout=None,                    # Inter-character timeout, None to disable
                             timeout=1)
     return SerPort
 
