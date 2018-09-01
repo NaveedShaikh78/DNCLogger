@@ -14,9 +14,9 @@ from datetime import datetime
 from datetime import timedelta
 from socket import timeout
 #appview = __import__('MachineView')
-#macView = appview.MachineMainView()       #GPIO.cleanup()
+#macView = appview.MachineMainView()
 appview = __import__('AppMainView')
-macView = appview.AppMainView()       #GPIO.cleanup()
+macView = appview.AppMainView()
 
 #{portno: port state} configure io ports can add new
 #GPI={17:False,27:False,22:False,6:False,13:False,19:False,26:False}
@@ -32,6 +32,10 @@ dataToSend=[]
 dirtyRecords=1
 queries=[]
 timeDelta=0
+
+def executeScaler(sqlx, query) :
+    data=sqlx.execute(query)
+    return data[0]
 
       
 def send_Data(threadName, delay):
@@ -130,6 +134,10 @@ def watch_GPIO(threadName, delay):
             queries=[]
             
       if len(dataToSend) ==0 :
+            monthBack = datetime.now() - timedelta(days=30)
+            query="delete from machinelogs where serstatus=2 and starttime <'%s' " %(monthBack.strftime('%Y-%m-%d %X'))
+            data=sqlx.execute(query)
+          
             query="select starttime,endtime,ioport,srno from machinelogs  where serstatus=0 and endtime not null order by srno LIMIT 10 "
             data=sqlx.execute(query)
             
@@ -205,7 +213,7 @@ try:
     conn = sqlite3.connect('loggerdb.db')
     sqlx = conn.cursor()
     data = sqlx.execute(query)
-    macView.machines[26].setOperator("Naveed")
+    #macView.machines[26].setOperator("Naveed")
 
     for val in data :
        lastTime = datetime.strptime(val[0],"%Y-%m-%d %X")
